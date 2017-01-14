@@ -87,7 +87,7 @@ is recommended."
   (let ((package (sly-current-package)))
     (lambda (callback)
       (sly-eval-async
-          `(slynk:simple-completions ,prefix ',package)
+          `(slynk-completion:simple-completions ,prefix ',package)
         (lambda (result)
           (funcall callback (cl-first result)))
         package))))
@@ -96,7 +96,7 @@ is recommended."
   (let ((package (sly-current-package)))
     (lambda (callback)
       (sly-eval-async
-          `(slynk:fuzzy-completions ,prefix ',package)
+          `(slynk-completion:flex-completions ,prefix ',package)
         (lambda (result)
           (funcall callback
                    (mapcar (lambda (completion)
