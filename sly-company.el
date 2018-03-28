@@ -124,16 +124,19 @@ is recommended."
       (goto-char (point-min))
       (current-buffer))))
 
-(defun sly-company-location (candidate)
-  (let ((source-buffer (current-buffer)))
-    (save-window-excursion
-      (sly-edit-definition candidate)
-      (let ((buffer (if (eq source-buffer (current-buffer))
-                        sly-xref-last-buffer
-                      (current-buffer))))
-        (when (buffer-live-p buffer)
-          (cons buffer (with-current-buffer buffer
-                         (point))))))))
+;; `sly-edit-definition' is not a good way to implement location
+;; references.
+;;
+;; (defun sly-company-location (candidate)
+;;   (let ((source-buffer (current-buffer)))
+;;     (save-window-excursion
+;;       (sly-edit-definition candidate)
+;;       (let ((buffer (if (eq source-buffer (current-buffer))
+;;                         sly-xref-last-buffer
+;;                       (current-buffer))))
+;;         (when (buffer-live-p buffer)
+;;           (cons buffer (with-current-buffer buffer
+;;                          (point))))))))
 
 ;;;###autoload
 (defun sly-company (command &optional arg &rest ignored)
@@ -156,8 +159,8 @@ is recommended."
      (concat " " (get-text-property 0 'flags arg)))
     ('doc-buffer
      (sly-company-doc-buffer (substring-no-properties arg)))
-    ('location
-     (sly-company-location (substring-no-properties arg)))
+    ;; ('location
+    ;;  (sly-company-location (substring-no-properties arg)))
     ('post-completion)
     ('sorted
      (eq sly-company-completion 'fuzzy))))
