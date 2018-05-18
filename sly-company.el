@@ -141,11 +141,12 @@ is recommended."
   (cl-case command
     ('init nil)
     ('prefix
-     (when (and sly-company-mode
-                (sly-connected-p)
-                (or sly-company-complete-in-comments-and-strings
-                    (null (company-in-string-or-comment))))
-       (company-grab-symbol)))
+     (if (and sly-company-mode
+              (sly-connected-p)
+              (or sly-company-complete-in-comments-and-strings
+                  (null (company-in-string-or-comment))))
+         (or (company-grab-symbol) 'stop)
+       'stop))
     ('candidates
      (when (sly-connected-p)
        (sly-company-fetch-candidates-async (substring-no-properties arg))))
