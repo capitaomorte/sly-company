@@ -1,48 +1,18 @@
-sly-company
-===========
+sly-company [DEPRECATED]
+========================
 
-A [company-mode](http://company-mode.github.io) Emacs completion
-backend for [SLY](https://github.com/capitaomorte/sly), a Common Lisp
-IDE.
+**This used to be** a [company-mode](http://company-mode.github.io)
+Emacs completion backend for
+[SLY](https://github.com/capitaomorte/sly), a Common Lisp IDE.
+
+**Nowadays**, with a recent SLY, you don't need it.  Just `M-x
+global-company-mode` should get you `company`-style completion in
+emacs, i.e. it should get you something like this:
+
+![company-flex-completion](https://raw.githubusercontent.com/joaotavora/sly/master/doc/animations/company-flex-completion.gif)
+
+### Credit
 
 [company-mode](http://company-mode.github.io) is a completion
-framework Nikolaj Schumacher. sly-company is based on
+framework Nikolaj Schumacher. sly-company was based on
 [slime-company](https://github.com/anwyn/slime-company).
-
-![screenshot](screenshot.jpg)
-
-## Setup
-
-The recommended install is via
-[MELPA](http://melpa.org/#/sly-company), where all you need to add to
-your `~/.emacs` or `~/.emacs.d/init/el` init file is:
-
-```el
-(add-hook 'sly-mode-hook 'sly-company-mode)
-```
-
-You need to add `company-sly` backend to `company-backends` manually:
-
-```el
-(add-to-list 'company-backends 'sly-company)
-```
-
-Optionally, use `M-x sly-company-mode` in the buffers where you want
-completion to happen.
-
-The following bindings for `company-active-map` may be useful:
-
-```el
-(define-key company-active-map (kbd "\C-n") 'company-select-next)
-(define-key company-active-map (kbd "\C-p") 'company-select-previous)
-(define-key company-active-map (kbd "\C-d") 'company-show-doc-buffer)
-(define-key company-active-map (kbd "M-.") 'company-show-location)
-```
-
-If not using MELPA, precede those lines with
-
-```el
-(add-to-list 'load-path "/path/to/company-mode")
-(add-to-list 'load-path "/path/to/sly-company")
-(require 'sly-company)
-```
